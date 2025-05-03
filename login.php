@@ -26,11 +26,12 @@
             if ($row['role'] == 'author') {
                 header("Location: author-dashboard.php");
             } 
-            // elseif ($row['role'] == 'editor') {
-            //     header("Location: editor-dashboard.php");
-            // } elseif ($row['role'] == 'admin') {
-            //     header("Location: admin-dashboard.php");
-            // }
+            elseif ($row['role'] == 'editor') {
+                // echo "editor";
+                header("Location: editor-dashboard.php");
+            } elseif ($row['role'] == 'admin') {
+                header("Location: admin-dashboard.php");
+            }
             exit;
         } else {
             $_SESSION['error'] = 1;
