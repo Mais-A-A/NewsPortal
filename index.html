@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Portal</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px
+        }
+        .header { 
+            background-color:rgba(15,20,50,255);
+            /* display: flex; */
+            color: white;
+            height: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .right-nav{
+            display: flex;
+            flex-direction: row;
+        }
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            float: right;
+            padding-top: 5px;
+            margin-top: 40px;
+            margin-right: 70px;
+            margin-bottom: 50px;
+        }
+        .weather-search{
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            float:left;
+            margin-left: 170px;
+            margin-top: 10px;
+
+        }
+        .weather { 
+            margin-right:20px;
+            padding-right: 10px;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            border-right: 2px solid gray;
+            font-size: x-small;
+        }
+        .search-bar {
+            border-left : 2px solid gray;
+            padding-left:10px
+        }
+        .search{
+            padding-right: 7px;
+            text-align: right;
+            border-radius: 5px;
+            /* font-family: 'Almarai', sans-serif; */
+            font-family: 'Sakkal Majalla', sans-serif;
+            font-weight: bold;
+            color: gray;
+            font-size: large;
+            width: 200px;
+            border:0px;
+        }
+        
+        .categories { 
+            /* float: right; */
+        }
+        .categories > li{
+            color : white;
+            list-style: none;
+        }
+        
+
+        .second-news > div{
+            float: inline-start;
+        }
+
+        .body-container{
+
+            margin-left: 12.5%;
+            margin-right: 12.5%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 75%;
+            height: 3350px;
+        }
+        .text-dark{
+            text-decoration: none;
+        }
+        .text {
+            direction: rtl; 
+            text-align: right;
+            font-family: 'Almarai', sans-serif;
+            /* font-family: 'Sakkal Majalla', sans-serif; */
+            font-weight:bold;
+        }
+        .row {
+            --bs-gutter-x: 0px;
+        }
+
+        .card{
+            padding : 5px;
+        }
+        .card-title{
+            font-size: 14px; 
+            color: gray;
+        }
+        .auto-news{
+            margin-bottom : 20px
+        }
+        .cat-title{
+            display: flex;
+            justify-content: space-between;
+            margin-right: 5px;
+            margin-left: 5px;
+            font-family: 'Sakkal Majalla', sans-serif;
+            font-weight:bolder;
+            /* border-bottom: 2px solid gray; */
+        }
+        .more-link{
+            text-decoration: none;
+        }
+        .more-title{
+            padding-bottom: 6px;
+            font-family: 'Sakkal Majalla', sans-serif;
+            font-weight:bolder;
+            border-bottom: 2px solid blue;
+            /* display: inline-block;
+            width: 6rem;
+            display: block; */
+        }
+        .list-content{
+            display: flex;
+            flex-direction: column;
+        }
+        .one-new{
+            display: flex;
+            justify-content: space-between;
+        }
+        .numbers{
+            font-family: 'Sakkal Majalla', sans-serif;
+            font-size: 50px;
+            font-weight: bolder;
+            color: rgb(224, 217, 217);
+        }
+        .most-read-and-more{
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header">
+            <div class="weather-search">
+                <div class="weather">
+                    <div style="display: flex;flex-direction: column;margin-right: 7px;">
+                        <span>21°C</span>
+                        <span>الدوحة</span>
+                    </div>
+                    <div><img src="cloudy.png" alt="weather icon" style="width: 15px;height: 15px;"> </div>
+                    <!-- <i class="fas fa-sun weather-icon"></i> -->
+
+                </div>
+
+                
+                <div class="search-bar">
+                    <input class="search" type="text" value="ادخل كلمة للبحث">
+                </div>
+                
+            </div>
+            <div class="right-nav">
+                <nav class="nav-links">
+                    <a href="#" class="text nav-link">رياضة</a>
+                    <a href="#" class="text nav-link">صحة</a>
+                    <a href="#" class="text nav-link">اقتصاد</a>
+                    <a href="#" class="text nav-link">سياسة</a>
+                    <a href="#" class="text nav-link">الرئيسة</a>
+                </nav>
+                <img src=" goldLogo.png" alt="Logo" style="margin-right:80px;margin-top:30px; max-width: 60px;max-height: 60px;">
+
+            </div>
+        </div>
+        
+    </header>
+
+    <div class="body-container">
+        <div class="auto-news">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0" >
+                            <img src="./temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0 ">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <a href="#" class="card text-decoration-none border-0">
+                        <img src=" temp.jpg"  alt="Image 2">
+                        <div class="card-body" style="background-color:rgba(15,20,50,255);color: white; height: 200px;">
+                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
+                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
+                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div> 
+        <div class="most-read-and-more">
+            
+            <div class="row">
+                <div class="col-md-8">
+                    
+
+                        <div style="display: flex;flex-direction: column; margin-right:20px">
+                            <div class="cat-title ">
+                                <a class="more-link" href="#">المزيد</a>
+                                <h3 class="more-title">المزيد من الاخبار</h3>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6" >
+                                    <div class="row">
+                                        <a href="#" class="card text-decoration-none border-0" >
+                                            <div class="card-body" >
+                                                <h4 class="card-title text">سياسة - العالم</h5>
+                                                <p class="card-text text">أعلنت قتل 36 مسلحاً..  </p>
+                                            </div>
+                                            <img src=" temp.jpg"  style="margin-left:100px; width: 200px; height: 100px;" alt="Image 2">
+                                        </a>
+                                    </div>
+                                    <div class="row">
+                                        <a href="#" class="card text-decoration-none border-0" >
+                                            <div class="card-body" >
+                                                <h4 class="card-title text">سياسة - العالم</h5>
+                                                <p class="card-text text">أعلنت قتل 36 مسلحاً..  </p>
+                                            </div>
+                                            <img src=" temp.jpg"  style="margin-left:100px; width: 200px; height: 100px;" alt="Image 2">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="#" class="card text-decoration-none border-0">
+                                        <img src=" temp.jpg"  alt="Image 2">
+                                        <div class="card-body">
+                                            <h6 class="card-title text">سياسة</h5>
+                                            <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        
+
+                    </div>
+                </div>
+                <div class="col-md-4 list-content">
+                    <div>
+                        <h3 class="more-title text-end" style="float: right;">الأكثر قراءة</h3>
+                        <br>
+                        <hr>
+                    </div>
+                        <div>
+                            <div class="text row">
+                            <div class="one-new">
+                                <p>فيديو يزعم</p>
+                                <h2 class="numbers">1</h2>
+                            </div> <hr>
+                            <div class="one-new">
+                                <p>فيديو يزعم</p>
+                                <h2 class="numbers">2</h2>
+                            </div> <hr>
+                            <div class="one-new">
+                                <p>فيديو يزعم</p>
+                                <h2 class="numbers">3</h2>
+                            </div> <hr>
+                            <div class="one-new">
+                                <p>فيديو يزعم</p>
+                                <h2 class="numbers">4</h2>
+                            </div> <hr>
+                            <div class="one-new">
+                                <p>فيديو يزعم انه لتوغل  اليات عسكرية في شوارع دمشق </p>
+                                <h2 class="numbers">5</h2>
+                            </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="auto-news first">
+            <div class="cat-title ">
+                <a class="more-link" href="#">المزيد</a>
+                <h3 class="more-title">سياسة </h3> 
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0" >
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0 ">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <a href="#" class="card text-decoration-none border-0">
+                        <img src=" temp.jpg"  alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
+                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
+                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
+                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div> 
+        <div class="auto-news second">
+            <div class="cat-title ">
+                <a class="more-link" href="#">المزيد</a>
+                <h3 class="more-title">اقتصاد</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0" >
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0 ">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <a href="#" class="card text-decoration-none border-0">
+                        <img src=" temp.jpg"  alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
+                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
+                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
+                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div> 
+        <div class="auto-news third">
+            <div class="cat-title ">
+                <a class="more-link" href="#">المزيد</a>
+                <h3 class="more-title">رياضة</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0" >
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0 ">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <a href="#" class="card text-decoration-none border-0">
+                        <img src=" temp.jpg"  alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
+                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
+                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
+                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div> 
+        <div class="auto-news fourth">
+            <div class="cat-title ">
+                <a class="more-link" href="#">المزيد</a>
+                <h3 class="more-title">صحة</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0" >
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0 ">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <a href="#" class="card text-decoration-none border-0">
+                            <img src=" temp.jpg"  alt="Image 2">
+                            <div class="card-body">
+                                <h6 class="card-title text">سياسة</h5>
+                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 ">
+                    <a href="#" class="card text-decoration-none border-0">
+                        <img src=" temp.jpg"  alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
+                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
+                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
+                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div> 
+    </div>
+
+    <footer class="footer bg-light text-dark text-end">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mt-4" style="padding-right:100px;">
+                    <h5 style="font-family: 'Sakkal Majalla', sans-serif;font-weight:bold;">اتصل بنا</h5>
+                    <div style="justify-content: left;">
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-youtube"></i></a>
+                        <a href="#" class="text-dark mx-2"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+    
+                <div class="col-md-3 mt-4 text-end" style="padding-right:100px;"> 
+                    <h5 style="font-family: 'Sakkal Majalla', sans-serif; font-weight:bold;">عن الموقع</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text text-dark">من نحن</a></li>
+                        <li><a href="#" class="text text-dark">اعلن معنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-3 mt-4 text-end" style="padding-right:100px;">
+                    <h5 style="font-family: 'Sakkal Majalla', sans-serif; font-weight: bold;">روابط</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text text-dark text-decoration">سياسة</a></li>
+                        <li><a href="#" class="text text-dark text-decoration">اقتصاد</a></li>
+                        <li><a href="#" class="text text-dark text-decoration">فن وثقافة</a></li>
+                        <li><a href="#" class="text text-dark text-decoration">رياضة</a></li>
+                        <li><a href="#" class="text text-dark text-decoration">منوعات</a></li>
+                    </ul>
+                </div>
+    
+                <div class="col-md-3 d-flex flex-column align-items-center text-end" > 
+                    <img src=" goldLogo.png" alt="Logo" style="max-width: 100px;">
+                    <p class="text" style="width: 300px;">تغطية إخبارية شاملة ومتعددة الوسائط للأحداث العربية والعالمية. ويتيح الوصول إلى شبكة متنوعة من البرامج السياسية والاجتماعية</p>
+                </div>
+    
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>
