@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autho Dashboard</title>
     <style>
-        *{
+        body{
+            background-color:  rgb(250, 249, 249);
             text-align : center;
         }
         .tbl{
@@ -14,13 +15,15 @@
             border : 3px solid rgb(146, 150, 155);
             border-collapse : collapse;
             width:90%;
+            box-shadow: 0 0 10px rgb(16, 73, 97);
+
         }
         .tbl td, .tbl th {
             border: 1px solid  rgb(146, 150, 155);
             padding: 8px;
         }
         tr:nth-child(odd) {
-            background-color:rgb(156, 207, 228);
+            background-color: rgb(172, 191, 199);
         }
         .author-pannel { 
             margin-left : 100px;
@@ -29,25 +32,28 @@
             flex-direction : row; 
             justify-content : space-between;  
         }
-        h1, h2, b { 
+        h1, h2, b{ 
             color : rgb(16, 73, 97);
         }
         button {
-            background-color : rgb(156, 207, 228);
+            background-color : rgb(172, 191, 199);
             border: 2px solid  rgb(146, 150, 155);
             padding : 7px;
+        }
+
+        button:hover {
+            background-color : rgb(121, 145, 155);
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <?php
-        $conn = new mysqli("localhost","root","","news_portal");
-        if($conn->connect_error){
-            die("Connection Failed : " . $conn->connect_error);
-        }
+        session_start();
+        require 'config.php';
 
-        $author_id = $_GET['id'];
+        $author_id = $_SESSION['id'];
         $sql = "SELECT name FROM user WHERE id = $author_id";
         $author_name =  $conn->query($sql)->fetch_assoc()['name'];
 
@@ -63,7 +69,7 @@
         $row_id = 1;
 
         echo "<table class = "."tbl".">";
-        echo "<th>الحالة</th> <th>الفئة</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
+        echo "<th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
         while($row = $result->fetch_assoc()){
             echo "<tr> 
             <td>".$row['status']."</td>".
