@@ -62,8 +62,16 @@
 <body>
 
 <div class="container">
+    
+    <?php 
+        session_start();
+        require 'config.php';
 
-    <?php require 'config.php'?>
+        if(!isset($_SESSION['id']) || !isset($_SESSION['role']) || $_SESSION['role'] !=='author') {
+            header('Location: 404.php');
+            exit;
+        }
+    ?>
     <h1>إضافة خبر جديد</h1>
     
     <form action ="add-new.php" method="POST">

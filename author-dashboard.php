@@ -53,35 +53,41 @@
         session_start();
         require 'config.php';
 
-        $author_id = $_SESSION['id'];
-        $sql = "SELECT name FROM user WHERE id = $author_id";
-        $author_name =  $conn->query($sql)->fetch_assoc()['name'];
+        if(isset($_SESSION['id'])) { 
 
-        echo "<h1 > $author_name مرحباً بك  </h1>
-              <span class = "."author-pannel"."> 
-              <a href="."add_news.php"."><button> <b> إضافة خبر جديد<b> <br>➕</button></a>
-              <h2> <u>: الأخبار التي قمت بنشرها</u> </h2>
-              </span>";
-
-        $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
-        
-        $result =  $conn->query($sql);
-        $row_id = 1;
-
-        echo "<table class = "."tbl".">";
-        echo "<th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
-        while($row = $result->fetch_assoc()){
-            echo "<tr> 
-            <td>".$row['status']."</td>".
-            "<td>".$row['name']."</td>".
-            "<td>".$row['dateposted']."</td>".
-            "<td><a href='" . $row['image'] . "' target='_blank'>" . $row['image'] . "</a></td>".
-            "<td>".$row['body']."</td>".
-            "<td>".$row['title']."</td>".
-            "<td>". $row_id++ . "</td>"
-                    ."</tr>";
+            $author_id = $_SESSION['id'];
+    
+            $sql = "SELECT name FROM user WHERE id = $author_id";
+            $author_name =  $conn->query($sql)->fetch_assoc()['name'];
+    
+            echo "<h1 > $author_name مرحباً بك  </h1>
+                  <span class = "."author-pannel"."> 
+                  <a href="."add-news-form.php"."><button> <b> إضافة خبر جديد<b> <br>➕</button></a>
+                  <h2> <u>: الأخبار التي قمت بنشرها</u> </h2>
+                  </span>";
+    
+            $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
+            
+            $result =  $conn->query($sql);
+            $row_id = 1;
+    
+            echo "<table class = "."tbl".">";
+            echo "<th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
+            while($row = $result->fetch_assoc()){
+                echo "<tr> 
+                <td>".$row['status']."</td>".
+                "<td>".$row['name']."</td>".
+                "<td>".$row['dateposted']."</td>".
+                "<td><a href='" . $row['image'] . "' target='_blank'>" . $row['image'] . "</a></td>".
+                "<td>".$row['body']."</td>".
+                "<td>".$row['title']."</td>".
+                "<td>". $row_id++ . "</td>"
+                        ."</tr>";
+            }
+        } else {
+            header('Location: 404.php');
         }
-    ?>
+        ?>
     
 
 </body>
