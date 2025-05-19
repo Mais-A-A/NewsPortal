@@ -67,7 +67,7 @@
         session_start();
         require 'config.php';
 
-        echo $_SESSION['role'];
+        // echo $_SESSION['role'];
 
         if(!isset($_SESSION['id']) || !isset($_SESSION['role']) ||( $_SESSION['role'] !=='author' &&  $_SESSION['role'] !=='admin')) {
 

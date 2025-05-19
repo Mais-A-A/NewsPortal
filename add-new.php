@@ -20,7 +20,7 @@
         $result = $conn->query($sql);
 
         if ($result === TRUE ) {
-            header("Location: author-dashboard.php?id=1");
+            header("Location: author-dashboard.php");
             exit; 
         } 
     } else {

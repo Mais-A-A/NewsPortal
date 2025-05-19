@@ -63,7 +63,7 @@
             echo "<h1 > $name مرحباً بك  </h1>
                   <span class = "."author-pannel"."> 
                   <a href="."add-news-form.php"."><button> <b> إضافة خبر جديد<b> <br>➕</button></a>
-                  <h2> <u>: الأخبار التي قمت بنشرها</u> </h2>
+                  <h2> <u>: الأخبار</u> </h2>
                   </span>";
     
                   
@@ -75,7 +75,7 @@
                 $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
 
             }
-            
+
             $result =  $conn->query($sql);
             $row_id = 1;
     
