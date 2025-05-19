@@ -1,3 +1,9 @@
+<?php   
+
+    session_start(); 
+    require 'config.php'; 
+    
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +15,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         *{
+            font-family: 'Sakkal Majalla';
             margin: 0px;
             padding: 0px
         }
@@ -88,7 +95,6 @@
             margin-left: 12.5%;
             margin-right: 12.5%;
             margin-top: 20px;
-            margin-bottom: 20px;
             width: 75%;
             height: 3350px;
         }
@@ -98,8 +104,8 @@
         .text {
             direction: rtl; 
             text-align: right;
-            font-family: 'Almarai', sans-serif;
-            /* font-family: 'Sakkal Majalla', sans-serif; */
+            /* font-family: 'Almarai', sans-serif; */
+            font-family: 'Sakkal Majalla', sans-serif;
             font-weight:bold;
         }
         .row {
@@ -198,6 +204,34 @@
         <div class="auto-news">
             <div class="row">
                 <div class="col-md-3">
+                    <?php 
+                        
+                        if ($id === null) {
+                            echo "هناك مشكلة أعد المحاولة! ";
+                            exit;
+                        }
+                        $sql = "SELECT * FROM news WHERE id = '$id'";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows === 1) {
+                            $row = $result->fetch_assoc();
+                            // print_r($row);
+
+                            $cat_id = $row['category_id']; //>> cat id 
+
+                            $news_title = $row['title'];
+                            $body = $row['body'];
+                            $image = $row['image'];
+                            $date = date("Y-m-d", strtotime($row['dateposted']));
+                            $keyword = $row['keywords'];
+
+                            $sql = "SELECT cat.name FROM category cat, news WHERE cat.id = news.category_id && news.id = $id ";
+                            $result = $conn->query($sql);
+                            $new_row = $result->fetch_assoc();
+                            $cat  = $new_row['name'];
+                        }
+
+                    ?> 
                     <div class="row">
                         <a href="#" class="card text-decoration-none border-0" >
                             <img src="./temp.jpg"  alt="Image 2">

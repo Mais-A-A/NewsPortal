@@ -64,15 +64,28 @@
                   <h2> <u>: الأخبار التي قمت بنشرها</u> </h2>
                   </span>";
     
+                  
             $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
             
             $result =  $conn->query($sql);
             $row_id = 1;
     
             echo "<table class = "."tbl".">";
-            echo "<th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
+            echo "<th>رابط الخبر</th><th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الرقم</th>";
             while($row = $result->fetch_assoc()){
                 echo "<tr>";
+                
+                // echo '<td>
+                //     <form action="details.php" method="POST">
+                //         <input type="hidden" name="id" value="' . ($row['id']) . '">
+                //         <button type="submit">عرض الخبر</button>
+                //     </form>
+                //     </td>';
+                echo '<td> <a href="details.php?id=' . $row['id'] . '"> عرض الخبر</a></td>';
+
+
+
+
                 if($row['status']=='pending'){
                     echo "<td style="."color:gray".">".$row['status']."</td>";
                 } else if($row['status']=='approved'){
@@ -84,10 +97,11 @@
                 echo "<td>".$row['name']."</td>".
                 "<td>".$row['dateposted']."</td>".
                 "<td><a href='" . $row['image'] . "' target='_blank'>" . $row['image'] . "</a></td>".
-                "<td>".$row['body']."</td>".
-                "<td>".$row['title']."</td>".
+                "<td>".nl2br(($row['body']))."</td>".
+                "<td>".nl2br(($row['title']))."</td>".
                 "<td>". $row_id++ . "</td>"
-                        ."</tr>";
+
+                ."</tr>";
             }
         } else {
             header('Location: 404.php');

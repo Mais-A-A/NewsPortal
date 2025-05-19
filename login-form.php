@@ -76,6 +76,7 @@
 
     <div class="login-box">
         <h2>تسجيل الدخول</h2>
+
         <form action="login.php" method="POST">
             <label for="email">البريد الإلكتروني:</label>
             <input type="email" name="email" required>
@@ -85,6 +86,7 @@
 
             <button type="submit">دخول</button>
         </form>
+        
     </div>
     <?php 
         session_start(); 
