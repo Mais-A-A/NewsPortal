@@ -53,10 +53,12 @@
         session_start();
         require 'config.php';
 
-        if(isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] =='author') {
+        if(isset($_SESSION['id']) && isset($_SESSION['role']) && ($_SESSION['role'] =='author' || $_SESSION['role'] =='admin' )) {
 
+            
             $author_id = $_SESSION['id'];
     
+
             $name = $_SESSION['name'];
             echo "<h1 > $name مرحباً بك  </h1>
                   <span class = "."author-pannel"."> 
@@ -65,7 +67,14 @@
                   </span>";
     
                   
-            $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
+            // $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
+            if($_SESSION['role'] =='admin'){
+                    $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id " ;
+
+            } else {
+                $sql = "SELECT news.*, category.name FROM news JOIN user  join category where category_id = category.id && author_id = user.id && author_id = $author_id" ;
+
+            }
             
             $result =  $conn->query($sql);
             $row_id = 1;

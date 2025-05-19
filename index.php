@@ -165,6 +165,8 @@
         }
         
     </style>
+    
+
 </head>
 
 <body>
@@ -190,10 +192,10 @@
             </div>
             <div class="right-nav">
                 <nav class="nav-links">
-                    <a href="#" class="text nav-link">رياضة</a>
-                    <a href="#" class="text nav-link">صحة</a>
-                    <a href="#" class="text nav-link">اقتصاد</a>
-                    <a href="#" class="text nav-link">سياسة</a>
+                    <a href="category.php?id=1" class="text nav-link">رياضة</a>
+                    <a href="category.php?id=3"class="text nav-link">صحة</a>
+                    <a href="category.php?id=4"  class="text nav-link">اقتصاد</a>
+                    <a href="category.php?id=2" class="text nav-link">سياسة</a>
                     <a href="#" class="text nav-link">الرئيسة</a>
                 </nav>
                 <img src=" goldLogo.png" alt="Logo" style="margin-right:80px;margin-top:30px; max-width: 60px;max-height: 60px;">
@@ -359,40 +361,18 @@
 
                     </div>
                 </div>
-                <div class="col-md-4 list-content">
+               <div class="col-md-4 list-content">
                     <div>
                         <h3 class="more-title text-end" style="float: right;">الأكثر قراءة</h3>
                         <br>
                         <hr>
                     </div>
-                        <div>
-                            <div class="text row">
-                            <?php
-                            $sql = "SELECT id, title FROM news ORDER BY read_cnt desc LIMIT 5";
-                            $result = $conn->query($sql);
-
-                            $mostRead = [];
-
-                            if ($result->num_rows > 0) {
-                                while ($row = $result->fetch_assoc()) {
-                                    $mostRead[] = $row;
-                                }
-                            }
-
-                            for ($i = 0; $i < count($mostRead); $i++) {
-                                echo '<a href="details.php?id=' . $mostRead[$i]['id'] . '" style="color: inherit; text-decoration: none;"> 
-                                    <div class="one-new">
-                                        <p>' . $mostRead[$i]['title'] . '</p>
-                                        <h2 class="numbers">' . ($i + 1) . '</h2>
-                                    </div> <hr>
-                                </a>';
-                            }
-                        
-                            ?>
-                           
+                    <div>
+                        <div class="text row" id="most-read-container">
                         </div>
-                        </div>
+                    </div>
                 </div>
+
 
             </div>
         </div>
@@ -752,6 +732,30 @@
             </div>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+        function loadMostRead() {
+            $.ajax({
+                url: 'get_most_read.php',
+                type: 'GET',
+                success: function(data) {
+                    $('#most-read-container').html(data);
+                },
+                error: function() {
+                    $('#most-read-container').html('<p>حدث خطأ أثناء تحميل الأخبار.</p>');
+                }
+            });
+        }
+
+        loadMostRead();
+
+        setInterval(loadMostRead, 6000); // 
+    });
+
     
+</script>
+
 </body>
 </html>

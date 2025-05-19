@@ -67,7 +67,10 @@
         session_start();
         require 'config.php';
 
-        if(!isset($_SESSION['id']) || !isset($_SESSION['role']) || $_SESSION['role'] !=='author') {
+        echo $_SESSION['role'];
+
+        if(!isset($_SESSION['id']) || !isset($_SESSION['role']) ||( $_SESSION['role'] !=='author' &&  $_SESSION['role'] !=='admin')) {
+
             header('Location: 404.php');
             exit;
         }

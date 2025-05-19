@@ -51,6 +51,10 @@
                 <h2> <u>: جميع المستخدمين</u> </h2>
             </span>";
 
+            echo "<a href="."editor-dashboard.php".">اعرض الاخبار</a><br>";
+
+            echo "<a href="."add-news-form.php".">أضف خبر جديد</a>";
+
 
             $row_id = 1;
             $sql = "SELECT id,name, email, role FROM user";

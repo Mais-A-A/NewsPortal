@@ -45,7 +45,7 @@
     session_start();
     require 'config.php';
 
-    if(isset($_SESSION['id']) && isset($_SESSION['role']) && $_SESSION['role'] =='editor') {
+    if(isset($_SESSION['id']) && isset($_SESSION['role']) && ($_SESSION['role'] =='editor' || $_SESSION['role'] =='admin')) {
         $name = $_SESSION['name'];
         echo "<h1 > $name مرحباً بك  </h1>
               <span class = "."author-pannel"."> 
@@ -56,25 +56,20 @@
             
         $result =  $conn->query($sql);
         $row_id = 1;
+       
 
 
         echo "<table class = "."tbl".">";
             echo "<th>التعديل</th><th></th> <th>الحالة</th> <th>التصنيف</th> <th>تاريخ النشر </th> <th>عنوان الصورة</th> <th>المحتوى </th> <th>العنوان</th> <th>الكاتب</th><th>الرقم</th>";
             while($row = $result->fetch_assoc()){
-                // echo "<tr>";
-                // if($row['status']=='pending'){
-                //     echo "<td style="."color:gray".">".$row['status']."</td>";
-                // } else if($row['status']=='approved'){
-                //     echo "<td style="."color:green".">".$row['status']."</td>";
-                // } else {
-                //     echo "<td style="."color:red".">".$row['status']."</td>";
-                // }
-
+                 $new_id = $row['id'];
+                 
                 echo "<tr>"."
                 <td> 
-                    <button on-click="."update-news-status.php".">✔️ قبول</button>
-                    <button >❌ رفض</button>
-                    <button >🗑️ حذف</button>
+                    <a href='update-news-status.php?action=approve&id=$new_id'><button>✔️ قبول</button></a>
+                    <a href='update-news-status.php?action=denied&id=$new_id'><button>❌ رفض</button></a>
+                    <a href='update-news-status.php?action=delete&id=$new_id'><button>🗑️ حذف</button></a>
+
 
                         
                 <td>";
