@@ -2,6 +2,9 @@
 
     session_start(); 
     require 'config.php'; 
+
+    
+
     
 ?>
 <!DOCTYPE html>
@@ -120,7 +123,7 @@
             color: gray;
         }
         .auto-news{
-            margin-bottom : 20px
+            margin-bottom : 70px
         }
         .cat-title{
             display: flex;
@@ -160,7 +163,7 @@
         .most-read-and-more{
             margin-bottom: 20px;
         }
-
+        
     </style>
 </head>
 
@@ -200,90 +203,96 @@
         
     </header>
 
+    <?php 
+                        
+        $sql = "select news.id, concat(substr(news.title,1,30),'..') as title, news.dateposted, news.image,keywords,concat(substr(body,1,40),'..') as body, category.name  as category_name
+                from news
+                join category on news.category_id = category.id
+                where status ='approved'
+                order by news.dateposted desc
+                limit 5;"
+                ;
+
+        $result = $conn->query($sql);
+
+        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    ?> 
     <div class="body-container">
         <div class="auto-news">
             <div class="row">
                 <div class="col-md-3">
-                    <?php 
-                        
-                        if ($id === null) {
-                            echo "هناك مشكلة أعد المحاولة! ";
-                            exit;
+                    
+                    <!-- <div class="row"> -->
+                        <?php
+                        for ($i = 4; $i >= 3 ; $i--) {
+                            
+                            $id = $data[$i]['id'];
+                            $image = $data[$i]['image'];
+                            $title = $data[$i]['title'];
+                            $keywords = $data[$i]['keywords'];
+                            $body = $data[$i]['body'];
+                            $cat = $data[$i]['category_name'];
+
+                            echo '<div class="row">
+                                <a href="details.php?id=' . $id . '" class="card text-decoration-none border-0">
+                                    <img src="' . $image . '" alt="Image 2" style="width: 300px; height: 133px;">
+                                    <div class="card-body">
+                                        <h6 class="card-title text">' . $cat . ' - ' . $keywords . '</h6>
+                                        <p class="card-text text">' . $title . '</p>
+                                    </div>
+                                </a>
+                            </div>';
                         }
-                        $sql = "SELECT * FROM news WHERE id = '$id'";
-                        $result = $conn->query($sql);
-
-                        if ($result->num_rows === 1) {
-                            $row = $result->fetch_assoc();
-                            // print_r($row);
-
-                            $cat_id = $row['category_id']; //>> cat id 
-
-                            $news_title = $row['title'];
-                            $body = $row['body'];
-                            $image = $row['image'];
-                            $date = date("Y-m-d", strtotime($row['dateposted']));
-                            $keyword = $row['keywords'];
-
-                            $sql = "SELECT cat.name FROM category cat, news WHERE cat.id = news.category_id && news.id = $id ";
-                            $result = $conn->query($sql);
-                            $new_row = $result->fetch_assoc();
-                            $cat  = $new_row['name'];
-                        }
-
-                    ?> 
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0" >
-                            <img src="./temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0 ">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
+                        ?>
                 </div>
+                <!--  -->
                 <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
+                        <?php
+                        for ($i = 2; $i >= 1 ; $i--) {
+                            
+                            $id = $data[$i]['id'];
+                            $image = $data[$i]['image'];
+                            $title = $data[$i]['title'];
+                            $keywords = $data[$i]['keywords'];
+                            $body = $data[$i]['body'];
+                            $cat = $data[$i]['category_name'];
+
+                            echo '<div class="row">
+                                <a href="details.php?id=' . $id . '" class="card text-decoration-none border-0">
+                                    <img src="' . $image . '" alt="Image 2" style="width: 300px; height: 133px;">
+                                    <div class="card-body">
+                                        <h6 class="card-title text">' . $cat . ' - ' . $keywords . '</h6>
+                                        <p class="card-text text">' . $title . '</p>
+                                    </div>
+                                </a>
+                            </div>';
+                        }
+                        ?>
                 </div>
+                <?php
+                    $id = $data[0]['id'];
+                    $image = $data[0]['image'];
+                    $title = $data[0]['title'];
+                    $keywords = $data[0]['keywords'];
+                    $body = $data[0]['body'];
+                    $cat = $data[0]['category_name'];
+                ?>
                 <div class="col-md-6 ">
-                    <a href="#" class="card text-decoration-none border-0">
-                        <img src=" temp.jpg"  alt="Image 2">
-                        <div class="card-body" style="background-color:rgba(15,20,50,255);color: white; height: 200px;">
-                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
-                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
-                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
+                    <a href="details.php?id=<?php echo $id;?>" class="card text-decoration-none border-0">
+                        <img src="<?php echo $image;?>"  alt="Image 2">
+                        <div class="card-body" style="background-color:rgba(15,20,50,255);color: white; height: 180px;">
+                            <p style="color:white;" class="card-title text"> <?php echo $cat," - ". $keywords; ?></h5>
+                            <h4 class="card-text text"> <?php echo $title;?></p>
+                            <p style="font-size:17px;" class="card-text text"><?php echo $body;?></h5>
                         </div>
                     </a>
                 </div>
 
             </div>
         </div> 
+
+
+
         <div class="most-read-and-more">
             
             <div class="row">
@@ -299,36 +308,48 @@
                             <div class="row">
                                 <div class="col-md-6" >
                                     <div class="row">
-                                        <a href="#" class="card text-decoration-none border-0" >
-                                            <div class="card-body" >
-                                                <h4 class="card-title text">سياسة - العالم</h5>
-                                                <p class="card-text text">أعلنت قتل 36 مسلحاً..  </p>
+                                        <?php
+                                        $sql = "SELECT news.id, news.title, substr(news.body,1,300) as body, news.image, category.name as category_name
+                                                FROM news
+                                                JOIN category ON news.category_id = category.id
+                                                WHERE news.status = 'approved'
+                                                ORDER BY news.dateposted DESC
+                                                LIMIT 3";
+                                                $stmt = $conn->prepare($sql);
+                                                $stmt->execute();
+                                                $result = $stmt->get_result();
+                                                $newsItems = $result->fetch_all(MYSQLI_ASSOC);
+                                                $item = $newsItems[0];
+                                                $item2 = $newsItems[1];
+                                                $item3 = $newsItems[2];
+
+                                        ?>
+                                        
+                                        <a href="details.php?id=<?= $item['id'] ?>" class="card text-decoration-none border-0">
+                                            <div class="card-body">
+                                                <h4 class="card-title text"><?= ($item['category_name']) ?></h4>
+                                                <p class="card-text text"><?= ($item['title']) ?></p>
                                             </div>
-                                            <img src=" temp.jpg"  style="margin-left:100px; width: 200px; height: 100px;" alt="Image 2">
+                                            <img src="<?= ($item['image']) ?>" style="margin-left:100px; width: 200px; height: 100px;" alt="News Image">
                                         </a>
                                     </div>
                                     <div class="row">
-                                        <a href="#" class="card text-decoration-none border-0" >
-                                            <div class="card-body" >
-                                                <h4 class="card-title text">سياسة - العالم</h5>
-                                                <p class="card-text text">أعلنت قتل 36 مسلحاً..  </p>
+                                         <a href="details.php?id=<?= $item2['id'] ?>" class="card text-decoration-none border-0">
+                                            <div class="card-body">
+                                                <h4 class="card-title text"><?= ($item2['category_name']) ?></h4>
+                                                <p class="card-text text"><?= ($item2['title']) ?></p>
                                             </div>
-                                            <img src=" temp.jpg"  style="margin-left:100px; width: 200px; height: 100px;" alt="Image 2">
+                                            <img src="<?= ($item2['image']) ?>" style="margin-left:100px; width: 200px; height: 100px;" alt="News Image">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <a href="#" class="card text-decoration-none border-0">
-                                        <img src=" temp.jpg"  alt="Image 2">
+                                    <a href="details.php?id=<?= $item3['id'] ?>" class="card text-decoration-none border-0">
+                                        <img src="<?= ($item2['image']) ?>"  alt="Image 2">
                                         <div class="card-body">
-                                            <h6 class="card-title text">سياسة</h5>
-                                            <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
-                                                علنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني
+                                            <h6 class="card-title text"> <?= $item3['title'] ?></h5>
+                                            <p class="card-text text">
+                                                <?= $item3['body'] ?>
                                             </p>
                                         </div>
                                     </a>
@@ -346,270 +367,350 @@
                     </div>
                         <div>
                             <div class="text row">
-                            <div class="one-new">
-                                <p>فيديو يزعم</p>
-                                <h2 class="numbers">1</h2>
-                            </div> <hr>
-                            <div class="one-new">
-                                <p>فيديو يزعم</p>
-                                <h2 class="numbers">2</h2>
-                            </div> <hr>
-                            <div class="one-new">
-                                <p>فيديو يزعم</p>
-                                <h2 class="numbers">3</h2>
-                            </div> <hr>
-                            <div class="one-new">
-                                <p>فيديو يزعم</p>
-                                <h2 class="numbers">4</h2>
-                            </div> <hr>
-                            <div class="one-new">
-                                <p>فيديو يزعم انه لتوغل  اليات عسكرية في شوارع دمشق </p>
-                                <h2 class="numbers">5</h2>
-                            </div>
-                            </div>
+                            <?php
+                            $sql = "SELECT id, title FROM news ORDER BY read_cnt desc LIMIT 5";
+                            $result = $conn->query($sql);
+
+                            $mostRead = [];
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $mostRead[] = $row;
+                                }
+                            }
+
+                            for ($i = 0; $i < count($mostRead); $i++) {
+                                echo '<a href="details.php?id=' . $mostRead[$i]['id'] . '" style="color: inherit; text-decoration: none;"> 
+                                    <div class="one-new">
+                                        <p>' . $mostRead[$i]['title'] . '</p>
+                                        <h2 class="numbers">' . ($i + 1) . '</h2>
+                                    </div> <hr>
+                                </a>';
+                            }
+                        
+                            ?>
+                           
+                        </div>
                         </div>
                 </div>
 
             </div>
         </div>
-        <div class="auto-news first">
-            <div class="cat-title ">
-                <a class="more-link" href="#">المزيد</a>
-                <h3 class="more-title">سياسة </h3> 
+
+         <div class="auto-news first">
+            
+             <div class="cat-title ">
+                    <a class="more-link" href="category.php?id=4">المزيد</a>
+                    <h3 class="more-title">اقتصاد </h3> 
             </div>
             <div class="row">
                 <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0" >
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0 ">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <a href="#" class="card text-decoration-none border-0">
-                        <img src=" temp.jpg"  alt="Image 2">
-                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
-                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
-                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
-                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
-                        </div>
-                    </a>
-                </div>
+         <?php
 
-            </div>
-        </div> 
-        <div class="auto-news second">
-            <div class="cat-title ">
-                <a class="more-link" href="#">المزيد</a>
-                <h3 class="more-title">اقتصاد</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0" >
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0 ">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <a href="#" class="card text-decoration-none border-0">
-                        <img src=" temp.jpg"  alt="Image 2">
-                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
-                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
-                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
-                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
-                        </div>
-                    </a>
-                </div>
+        $sql = "SELECT news.id, news.title, news.image, body as body, category.name AS category_name, news.keywords
+        FROM news
+        JOIN category ON news.category_id = category.id
+        WHERE news.status = 'approved' AND news.category_id = 4
+        ORDER BY news.dateposted DESC
+        LIMIT 5";
 
-            </div>
-        </div> 
-        <div class="auto-news third">
-            <div class="cat-title ">
-                <a class="more-link" href="#">المزيد</a>
-                <h3 class="more-title">رياضة</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0" >
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0 ">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <a href="#" class="card text-decoration-none border-0">
-                        <img src=" temp.jpg"  alt="Image 2">
-                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
-                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
-                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
-                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
-                        </div>
-                    </a>
-                </div>
+        $result = $conn->query($sql);
 
-            </div>
-        </div> 
-        <div class="auto-news fourth">
-            <div class="cat-title ">
-                <a class="more-link" href="#">المزيد</a>
-                <h3 class="more-title">صحة</h3>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0" >
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0 ">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="row">
-                        <a href="#" class="card text-decoration-none border-0">
-                            <img src=" temp.jpg"  alt="Image 2">
-                            <div class="card-body">
-                                <h6 class="card-title text">سياسة</h5>
-                                <p class="card-text text">أعلنت قتل 36 مسلحاً.. تركيا تواصل عملياتها ضد حزب العمال الكردستاني</p>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-6 ">
-                    <a href="#" class="card text-decoration-none border-0">
-                        <img src=" temp.jpg"  alt="Image 2">
-                        <div class="card-body" style="background-color:white;color: black; height: 200px;">
-                            <p style="color:white;" class="card-title text">سياسة - فلسطين </h5>
-                            <h4 class="card-text text">الغزي ورحلة معاناته اليومية..خطة اسرائيلية للسيطرة على مساعدات القطاع </p>
-                            <p style="font-size:17px;" class="card-text text">قدم الجيش الاسرائيلي للامم المتحدة ولمنظمات الاغاثة خطة لادارة المساعدات التي تدخل الى غزة وتتضمن فرض اسرائيلية اكثر..</h5>
-                        </div>
-                    </a>
-                </div>
+        $newsItems = [];
+        if ($result && $result->num_rows > 0) {
+            $newsItems = $result->fetch_all(MYSQLI_ASSOC);
+        }
 
+
+        for ($i = 0; $i < 2; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            echo '<div class="row">
+        <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+            <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+            <div class="card-body">
+                <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                <p class="card-text text">' . $item['title'] . '</p>
             </div>
-        </div> 
+        </a>
+    </div>';
+
+        }
+        ?>
     </div>
 
+    <div class="col-md-3">
+        <?php
+        for ($i = 2; $i < 4; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            
+            echo '<div class="row">
+                    <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+                        <div class="card-body">
+                            <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                            <p class="card-text text">' . $item['title'] . '</p>
+                        </div>
+                    </a>
+                </div>';
+        }
+        ?>
+    </div>
+
+    <div class="col-md-6 ">
+        <?php
+        if (isset($newsItems[4])) {
+            $item = $newsItems[4];
+            echo '<a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 180px;">
+                            <p class="card-title text">' . $item['category_name'] . ' - '.$item['keywords'].'</p>
+                            <h4 class="card-text text">' . $item['title'] . '</h4>
+                            <p style="font-size:17px;" class="card-text text">' . substr($item['body'], 0, 800) . '..</p>
+                        </div>
+                    </a>';
+        }
+        ?>
+    </div>
+    </div>
+    </div> 
+     <div class="auto-news first">
+            
+             <div class="cat-title ">
+                    <a class="more-link" href="category.php?id=2">المزيد</a>
+                    <h3 class="more-title">سياسة </h3> 
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+         <?php
+
+        $sql = "SELECT news.id, news.title, news.image, body as body, category.name AS category_name, news.keywords
+        FROM news
+        JOIN category ON news.category_id = category.id
+        WHERE news.status = 'approved' AND news.category_id = 2
+        ORDER BY news.dateposted DESC
+        LIMIT 5";
+
+        $result = $conn->query($sql);
+
+        $newsItems = [];
+        if ($result && $result->num_rows > 0) {
+            $newsItems = $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+
+        for ($i = 0; $i < 2; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            echo '<div class="row">
+        <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+            <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+            <div class="card-body">
+                <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                <p class="card-text text">' . $item['title'] . '</p>
+            </div>
+        </a>
+    </div>';
+
+        }
+        ?>
+    </div>
+
+    <div class="col-md-3">
+        <?php
+        for ($i = 2; $i < 4; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            
+            echo '<div class="row">
+                    <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+                        <div class="card-body">
+                            <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                            <p class="card-text text">' . $item['title'] . '</p>
+                        </div>
+                    </a>
+                </div>';
+        }
+        ?>
+    </div>
+
+    <div class="col-md-6 ">
+        <?php
+        if (isset($newsItems[4])) {
+            $item = $newsItems[4];
+            echo '<a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 180px;">
+                            <p class="card-title text">' . $item['category_name'] . ' - '.$item['keywords'].'</p>
+                            <h4 class="card-text text">' . $item['title'] . '</h4>
+                            <p style="font-size:17px;" class="card-text text">' . substr($item['body'], 0, 800) . '..</p>
+                        </div>
+                    </a>';
+        }
+        ?>
+    </div>
+</div>
+    </div> 
+     <div class="auto-news first">
+            
+             <div class="cat-title ">
+                    <a class="more-link" href="category.php?id=1">المزيد</a>
+
+                    <h3 class="more-title">رياضة </h3> 
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+         <?php
+
+        $sql = "SELECT news.id, news.title, news.image, body as body, category.name AS category_name, news.keywords
+        FROM news
+        JOIN category ON news.category_id = category.id
+        WHERE news.status = 'approved' AND news.category_id = 1
+        ORDER BY news.dateposted DESC
+        LIMIT 5";
+
+        $result = $conn->query($sql);
+
+        $newsItems = [];
+        if ($result && $result->num_rows > 0) {
+            $newsItems = $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+
+        for ($i = 0; $i < 2; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            echo '<div class="row">
+        <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+            <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+            <div class="card-body">
+                <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                <p class="card-text text">' . $item['title'] . '</p>
+            </div>
+        </a>
+    </div>';
+
+        }
+        ?>
+    </div>
+
+    <div class="col-md-3">
+        <?php
+        for ($i = 2; $i < 4; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            
+            echo '<div class="row">
+                    <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+                        <div class="card-body">
+                            <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                            <p class="card-text text">' . $item['title'] . '</p>
+                        </div>
+                    </a>
+                </div>';
+        }
+        ?>
+    </div>
+
+    <div class="col-md-6 ">
+        <?php
+        if (isset($newsItems[4])) {
+            $item = $newsItems[4];
+            echo '<a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 180px;">
+                            <p class="card-title text">' . $item['category_name'] . ' - '.$item['keywords'].'</p>
+                            <h4 class="card-text text">' . $item['title'] . '</h4>
+                            <p style="font-size:17px;" class="card-text text">' . substr($item['body'], 0, 800) . '..</p>
+                        </div>
+                    </a>';
+        }
+        ?>
+    </div>
+</div>
+    </div> 
+     <div class="auto-news first">
+            
+             <div class="cat-title ">
+                    <a class="more-link" href="category.php?id=3">المزيد</a>
+                    <h3 class="more-title">صحة </h3> 
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+         <?php
+
+        $sql = "SELECT news.id, news.title, news.image, body as body, category.name AS category_name, news.keywords
+        FROM news
+        JOIN category ON news.category_id = category.id
+        WHERE news.status = 'approved' AND news.category_id = 3
+        ORDER BY news.dateposted DESC
+        LIMIT 5";
+
+        $result = $conn->query($sql);
+
+        $newsItems = [];
+        if ($result && $result->num_rows > 0) {
+            $newsItems = $result->fetch_all(MYSQLI_ASSOC);
+        }
+
+
+        for ($i = 0; $i < 2; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            echo '<div class="row">
+        <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+            <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+            <div class="card-body">
+                <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                <p class="card-text text">' . $item['title'] . '</p>
+            </div>
+        </a>
+    </div>';
+
+        }
+        ?>
+    </div>
+
+    <div class="col-md-3">
+        <?php
+        for ($i = 2; $i < 4; $i++) {
+            if (!isset($newsItems[$i])) break;
+            $item = $newsItems[$i];
+            
+            echo '<div class="row">
+                    <a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2" style="width: 300px; height: 133px;">
+                        <div class="card-body">
+                            <h6 class="card-title text">' . $item['category_name'] . '</h6>
+                            <p class="card-text text">' . $item['title'] . '</p>
+                        </div>
+                    </a>
+                </div>';
+        }
+        ?>
+    </div>
+
+    <div class="col-md-6 ">
+        <?php
+        if (isset($newsItems[4])) {
+            $item = $newsItems[4];
+            echo '<a href="details.php?id=' . $item['id'] . '" class="card text-decoration-none border-0">
+                        <img src="' . $item['image'] . '" alt="Image 2">
+                        <div class="card-body" style="background-color:white;color: black; height: 180px;">
+                            <p class="card-title text">' . $item['category_name'] . ' - '.$item['keywords'].'</p>
+                            <h4 class="card-text text">' . $item['title'] . '</h4>
+                            <p style="font-size:17px;" class="card-text text">' . substr($item['body'], 0, 800) . '..</p>
+                        </div>
+                    </a>';
+        }
+        ?>
+    </div>
+</div>
+    </div> 
+      
     <footer class="footer bg-light text-dark text-end">
         <div class="container">
             <div class="row">

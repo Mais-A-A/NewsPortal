@@ -10,8 +10,10 @@
         exit;
     }
 
-    $sql = "SELECT * FROM news WHERE id = '$id'";
-    $result = $conn->query($sql);
+    $update_sql = "UPDATE news SET read_cnt = read_cnt + 1 WHERE id = $id";
+    $conn->query($update_sql);
+    // $sql = "SELECT * FROM news WHERE id = '$id'";
+    // $result = $conn->query($sql);
 
 
     $sql = "SELECT * FROM news WHERE id = '$id'";
